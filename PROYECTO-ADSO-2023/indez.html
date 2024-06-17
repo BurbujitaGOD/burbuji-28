@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablet con Post HTML5</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        #tablet {
+            width: 768px; /* Ancho de la tablet */
+            height: 1024px; /* Alto de la tablet */
+            background-color: #ffffff;
+            margin: 50px auto; /* Centra la tablet en la página */
+            border: 10px solid #333333;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #barra-superior {
+            width: 100%;
+            height: 40px;
+            background-color: #333333;
+            color: #ffffff;
+            text-align: center;
+            line-height: 40px;
+            position: absolute;
+            top: 0;
+        }
+
+        #pantalla {
+            width: 100%;
+            height: calc(100% - 40px); /* Resta el espacio de la barra superior */
+            overflow: auto;
+            padding: 10px;
+        }
+
+        .post {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="tablet">
+        <div id="barra-superior">Tablet con Post HTML5</div>
+        <div id="pantalla">
+            <!-- Contenido de la tablet -->
+            <div class="post">
+                <h2>Título del Post</h2>
+                <p>Contenido del post...</p>
+            </div>
+            <div class="post">
+                <h2>Otro Título</h2>
+                <p>Otro contenido interesante...</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+function validarYEnviar() {
+    const titulo = document.getElementById('titulo').value;
+    const contenido = document.getElementById('contenido').value;
+    const errorMessage = document.getElementById('error-message');
+
+    if (!titulo || !contenido) {
+        errorMessage.innerText = 'Por favor, diligencie todos los campos.';
+    } else {
+        errorMessage.innerText = '';
+        sessionStorage.setItem('titulo', titulo);
+        sessionStorage.setItem('contenido', contenido);
+        document.getElementById('postForm').submit();
+    }
+}
+
+// Recuperar datos almacenados en sessionStorage
+const titulo = sessionStorage.getItem('titulo') || 'N/A';
+const contenido = sessionStorage.getItem('contenido') || 'N/A';
+const fecha = new Date().toLocaleString();
+
+document.getElementById('postTitle').innerText = `${titulo}`;
+document.getElementById('postContent').innerText = `${contenido}`;
+document.getElementById('postDate').innerText = `Fecha de publicación: ${fecha}`;
+
+// Limpiar los datos almacenados después de mostrarlos
+sessionStorage.removeItem('titulo');
+sessionStorage.removeItem('contenido');
+
